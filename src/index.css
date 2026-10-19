@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-cursive { font-family: 'Dancing Script', cursive; }
+.font-elegant { font-family: 'Playfair Display', serif; }
+.font-clean { font-family: 'Inter', sans-serif; }
+
+.glass {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-pink-gradient {
+  background: linear-gradient(135deg, #FF6B9D, #C9B8FF, #FF6B9D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes flicker {
+  0%,100%{transform:scaleY(1) scaleX(1)}
+  25%{transform:scaleY(1.1) scaleX(0.9)}
+  50%{transform:scaleY(0.9) scaleX(1.1)}
+  75%{transform:scaleY(1.05) scaleX(0.95)}
+}
+.animate-flicker { animation: flicker 0.3s ease-in-out infinite; }
+
+@keyframes twinkle { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+@keyframes float-up {
+  0% { transform: translateY(100vh); opacity: 0.8; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+@keyframes bokeh { 0%,100%{transform:scale(1);opacity:0.3} 50%{transform:scale(1.2);opacity:0.5} }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html { scroll-behavior: smooth; }
+body { overflow-x: hidden; }
