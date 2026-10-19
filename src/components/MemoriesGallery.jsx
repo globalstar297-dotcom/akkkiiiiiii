@@ -69,8 +69,7 @@ export default function MemoriesGallery() {
           Our Little Collection of Memories 📸
         </motion.h2>
         <p className="font-clean text-center mb-12" style={{ color: '#fb7185' }}>
-          Replace placeholders by updating{' '}
-          <code className="text-pink-500 bg-pink-50 px-1 rounded">src/config.js</code> with your real photos
+          A little collection of our most beautiful moments together 💗
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">

@@ -1,45 +1,46 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import OpeningScreen from './components/OpeningScreen';
-import HeroSection from './components/HeroSection';
-import BirthdayLetter from './components/BirthdayLetter';
-import MemoriesGallery from './components/MemoriesGallery';
-import ReasonsSpecial from './components/ReasonsSpecial';
-import InteractiveSurprises from './components/InteractiveSurprises';
-import GrandFinale from './components/GrandFinale';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import FloatingParticles from './components/FloatingParticles';
 import MusicToggle from './components/MusicToggle';
+import Navbar from './components/Navbar';
+import OpeningPage from './pages/OpeningPage';
+import HeroPage from './pages/HeroPage';
+import LetterPage from './pages/LetterPage';
+import GalleryPage from './pages/GalleryPage';
+import ReasonsPage from './pages/ReasonsPage';
+import SurprisesPage from './pages/SurprisesPage';
+import FinalePage from './pages/FinalePage';
 
-export default function App() {
-  const [showMain, setShowMain] = useState(false);
+function AnimatedRoutes() {
+  const location = useLocation();
+  const showNav = location.pathname !== '/';
 
   return (
-    <div className="relative min-h-screen font-clean">
+    <>
       <FloatingParticles />
-      <MusicToggle />
-
-      <AnimatePresence>
-        {!showMain && (
-          <OpeningScreen onReveal={() => setShowMain(true)} />
-        )}
+      {showNav && <MusicToggle />}
+      {showNav && <Navbar />}
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<OpeningPage />} />
+          <Route path="/hero" element={<HeroPage />} />
+          <Route path="/letter" element={<LetterPage />} />
+          <Route path="/memories" element={<GalleryPage />} />
+          <Route path="/reasons" element={<ReasonsPage />} />
+          <Route path="/surprises" element={<SurprisesPage />} />
+          <Route path="/finale" element={<FinalePage />} />
+        </Routes>
       </AnimatePresence>
+    </>
+  );
+}
 
-      <AnimatePresence>
-        {showMain && (
-          <motion.main
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <HeroSection />
-            <BirthdayLetter />
-            <MemoriesGallery />
-            <ReasonsSpecial />
-            <InteractiveSurprises />
-            <GrandFinale />
-          </motion.main>
-        )}
-      </AnimatePresence>
-    </div>
+export default function App() {
+  return (
+    <BrowserRouter>
+      <div className="relative min-h-screen font-clean">
+        <AnimatedRoutes />
+      </div>
+    </BrowserRouter>
   );
 }
