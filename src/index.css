@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,10 +9,17 @@
 .font-clean { font-family: 'Inter', sans-serif; }
 
 .glass {
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255,255,255,0.3);
+}
+
+.glass-dark {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.12);
 }
 
 .text-gold-gradient {
@@ -27,6 +36,22 @@
   background-clip: text;
 }
 
+.text-rose-gold {
+  background: linear-gradient(135deg, #f9a8d4, #fbbf24, #f9a8d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient cycling background */
+@keyframes gradientCycle {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-gradient { background-size: 200% 200%; animation: gradientCycle 8s ease infinite; }
+
+/* Flicker for candle flames */
 @keyframes flicker {
   0%,100%{transform:scaleY(1) scaleX(1)}
   25%{transform:scaleY(1.1) scaleX(0.9)}
@@ -35,7 +60,8 @@
 }
 .animate-flicker { animation: flicker 0.3s ease-in-out infinite; }
 
-@keyframes twinkle { 0%,100%{opacity:0.3} 50%{opacity:1} }
+@keyframes twinkle { 0%,100%{opacity:0.2} 50%{opacity:1} }
+.animate-twinkle { animation: twinkle var(--duration, 2s) ease-in-out var(--delay, 0s) infinite; }
 
 @keyframes float-up {
   0% { transform: translateY(100vh); opacity: 0.8; }
@@ -43,6 +69,53 @@
 }
 
 @keyframes bokeh { 0%,100%{transform:scale(1);opacity:0.3} 50%{transform:scale(1.2);opacity:0.5} }
+.animate-bokeh { animation: bokeh 4s ease-in-out infinite; }
+
+/* Shooting star */
+@keyframes shootingStar {
+  0% { transform: translateX(-200px) translateY(0) rotate(-30deg); opacity: 1; }
+  100% { transform: translateX(calc(100vw + 300px)) translateY(200px) rotate(-30deg); opacity: 0; }
+}
+
+/* Firework ray */
+@keyframes fireworkRay {
+  0% { transform: scale(0) translateY(0); opacity: 1; }
+  100% { transform: scale(1) translateY(-60px); opacity: 0; }
+}
+
+/* Rising hearts */
+@keyframes riseUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-220px) scale(0.5); opacity: 0; }
+}
+.animate-rise { animation: riseUp 2s ease-out forwards; }
+
+/* Bob animation */
+@keyframes bob {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.animate-bob { animation: bob 3s ease-in-out infinite; }
+
+/* Glow pulse */
+@keyframes glowPulse {
+  0%,100% { box-shadow: 0 0 20px rgba(255,107,157,0.4); }
+  50% { box-shadow: 0 0 40px rgba(255,107,157,0.8), 0 0 60px rgba(201,184,255,0.4); }
+}
+.animate-glow { animation: glowPulse 2.5s ease-in-out infinite; }
+
+/* Shimmer for ribbon */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Balloon float */
+@keyframes balloonFloat {
+  0% { transform: translateY(110vh) rotate(-5deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(-20vh) rotate(5deg); opacity: 0.8; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -52,4 +125,4 @@
 }
 
 html { scroll-behavior: smooth; }
-body { overflow-x: hidden; }
+body { overflow-x: hidden; margin: 0; }
