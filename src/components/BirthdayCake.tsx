@@ -5,11 +5,19 @@ import { birthdayConfig } from '../config/birthday';
 
 const CANDLE_COUNT = 5;
 
+function getRandomWish(exclude?: string): string {
+  const wishes = birthdayConfig.wishes;
+  const filtered = wishes.filter((w) => w !== exclude);
+  const pool = filtered.length > 0 ? filtered : wishes;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
 export default function BirthdayCake() {
   const [flamesVisible, setFlamesVisible] = useState<boolean[]>(
     Array(CANDLE_COUNT).fill(true)
   );
   const [wishRevealed, setWishRevealed] = useState(false);
+  const [currentWish, setCurrentWish] = useState<string>('');
 
   const blowOutCandles = () => {
     if (!flamesVisible.some(Boolean)) return;
@@ -25,6 +33,7 @@ export default function BirthdayCake() {
     }
 
     setTimeout(() => {
+      setCurrentWish(getRandomWish());
       setWishRevealed(true);
       gentleConfetti();
     }, CANDLE_COUNT * 150 + 200);
@@ -33,6 +42,7 @@ export default function BirthdayCake() {
   const resetCandles = () => {
     setFlamesVisible(Array(CANDLE_COUNT).fill(true));
     setWishRevealed(false);
+    setCurrentWish('');
   };
 
   return (
@@ -172,7 +182,7 @@ export default function BirthdayCake() {
             className="mt-6"
           >
             <p className="font-serif italic text-[#D9B777] text-xl max-w-lg mx-auto">
-              ✨ {birthdayConfig.wishes[0]} ✨
+              ✨ {currentWish} ✨
             </p>
             <button
               onClick={resetCandles}

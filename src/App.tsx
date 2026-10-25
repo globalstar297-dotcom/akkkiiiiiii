@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import GoldParticles from './components/GoldParticles';
 import Navigation from './components/Navigation';
 import IntroScene from './components/IntroScene';
@@ -15,42 +15,44 @@ export default function App() {
   const [showIntro, setShowIntro] = useState(true);
 
   return (
-    <>
-      <GoldParticles />
+    <MotionConfig reducedMotion="user">
+      <>
+        <GoldParticles />
 
-      <AnimatePresence>
-        {showIntro && (
-          <IntroScene key="intro" onComplete={() => setShowIntro(false)} />
-        )}
-      </AnimatePresence>
+        <AnimatePresence>
+          {showIntro && (
+            <IntroScene key="intro" onComplete={() => setShowIntro(false)} />
+          )}
+        </AnimatePresence>
 
-      <AnimatePresence>
-        {!showIntro && (
-          <motion.main
-            key="main"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Navigation />
-            <BirthdayHero />
-            <RoastSection />
-            <MemoryGallery />
-            <BirthdayLetter />
-
-            {/* Wish section — wraps BirthdayCake + WishGenerator */}
-            <section
-              id="wish"
-              style={{ background: '#08090D', padding: '80px 0' }}
+        <AnimatePresence>
+          {!showIntro && (
+            <motion.main
+              key="main"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
             >
-              <BirthdayCake />
-              <WishGenerator />
-            </section>
+              <Navigation />
+              <BirthdayHero />
+              <RoastSection />
+              <MemoryGallery />
+              <BirthdayLetter />
 
-            <BirthdayFinale />
-          </motion.main>
-        )}
-      </AnimatePresence>
-    </>
+              {/* Wish section — wraps BirthdayCake + WishGenerator */}
+              <section
+                id="wish"
+                style={{ background: '#08090D', padding: '80px 0' }}
+              >
+                <BirthdayCake />
+                <WishGenerator />
+              </section>
+
+              <BirthdayFinale />
+            </motion.main>
+          )}
+        </AnimatePresence>
+      </>
+    </MotionConfig>
   );
 }
